@@ -42,7 +42,7 @@ export default function Suggestion({ $target, initialState }) {
       const lastIndex = this.state.items.length - 1;
       const navigationKeys = ["ArrowUp", "ArrowDown"];
       let nextIndex = selectedIndex;
-
+      console.log(e.key);
       if (navigationKeys.includes(e.key)) {
         if (e.key === "ArrowUp") {
           nextIndex = selectedIndex === 0 ? lastIndex : nextIndex - 1;

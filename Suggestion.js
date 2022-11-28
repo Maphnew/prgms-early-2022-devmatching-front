@@ -1,4 +1,4 @@
-export default function Suggestion({ $target, initialState }) {
+export default function Suggestion({ $target, initialState, onSelect }) {
   this.$element = document.createElement("div");
   this.$element.className = "Suggestion";
   $target.appendChild(this.$element);
@@ -54,6 +54,20 @@ export default function Suggestion({ $target, initialState }) {
           ...this.state,
           selectedIndex: nextIndex,
         });
+      } else if (e.key === "Enter") {
+        onSelect(this.state.items[this.state.selectedIndex]);
+      }
+    }
+  });
+
+  this.$element.addEventListener("click", (e) => {
+    const $li = e.target.closest("li");
+    if ($li) {
+      const { index } = $li.dataset;
+      try {
+        onSelect(this.state.items[parseInt(index)]);
+      } catch (e) {
+        alert("Something goes wrong");
       }
     }
   });

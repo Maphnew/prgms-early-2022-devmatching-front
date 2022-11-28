@@ -36,5 +36,27 @@ export default function Suggestion({ $target, initialState }) {
     }
   };
 
+  window.addEventListener("keyup", (e) => {
+    if (this.state.items.length > 0) {
+      const { selectedIndex } = this.state;
+      const lastIndex = this.state.items.length - 1;
+      const navigationKeys = ["ArrowUp", "ArrowDown"];
+      let nextIndex = selectedIndex;
+
+      if (navigationKeys.includes(e.key)) {
+        if (e.key === "ArrowUp") {
+          nextIndex = selectedIndex === 0 ? lastIndex : nextIndex - 1;
+        } else if (e.key === "ArrowDown") {
+          nextIndex = selectedIndex === lastIndex ? 0 : nextIndex + 1;
+        }
+
+        this.setState({
+          ...this.state,
+          selectedIndex: nextIndex,
+        });
+      }
+    }
+  });
+
   this.render();
 }

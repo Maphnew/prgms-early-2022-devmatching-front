@@ -3,7 +3,10 @@ export default function Suggestion({ $target, initialState }) {
   this.$element.className = "Suggestion";
   $target.appendChild(this.$element);
 
-  this.state = initialState;
+  this.state = {
+    selectedIndex: 0,
+    items: initialState.items,
+  };
 
   this.setState = (nextState) => {
     this.state = nextState;
@@ -11,7 +14,7 @@ export default function Suggestion({ $target, initialState }) {
   };
 
   this.render = () => {
-    const { items = [] } = this.state;
+    const { items = [], selectedIndex } = this.state;
     if (items.length > 0) {
       this.$element.style.display = "block";
       this.$element.innerHTML = `
@@ -19,7 +22,9 @@ export default function Suggestion({ $target, initialState }) {
                     ${items
                       .map(
                         (item, index) => `                      
-                        <li data-index="${index}">${item}</li>
+                        <li class="${
+                          index === selectedIndex ? "Suggestion__item--selected" : ""
+                        }" data-index="${index}">${item}</li>
                       `
                       )
                       .join("")}
